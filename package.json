@@ -25,6 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "webpack --mode production",
+    "preinstall": "npm install --force",
     "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
