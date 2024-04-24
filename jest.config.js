@@ -1,7 +1,8 @@
-const { defaults } = require("jest-config");
-
-const config = {
-  moduleFileExtensions: [...defaults.moduleFileExtensions, "mts", "cts"],
+module.exports = {
+  preset: "ts-jest",
+  transform: {
+    "^.+\\.(ts|tsx)?$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
+  },
+  transformIgnorePatterns: ["node_modules/(?!axios)"],
 };
-
-module.exports = config;

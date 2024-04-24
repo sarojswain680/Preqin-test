@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ACTION, VIEW_DETAILS } from "../Utils/constatant";
+import { formatUTCtoIST } from "../Utils/helperFunctions";
 
 const DynamicTable = ({ data, columns }) => {
   return (
@@ -24,14 +25,16 @@ const DynamicTable = ({ data, columns }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row, index) => (
+          {data.map((row) => (
             <TableRow
-              key={index}
+              key={row.firm_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {columns.map((column) => (
                 <TableCell key={column.key} align={column.align || "right"}>
-                  {row[column.key]}
+                  {column.key === "date_added"
+                    ? formatUTCtoIST(row[column.key])
+                    : row[column.key]}
                 </TableCell>
               ))}
               <TableCell align="right">

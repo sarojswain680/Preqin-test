@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { fetchCommitmentInfo } from "../API";
 import { filterDataByIds, formatUTCtoIST } from "../Utils/helperFunctions";
 import AssetClassDropdown from "./AssetClassDropDown";
+import get from "lodash/get";
 
 const InvestorDetails = () => {
   const { firm_id } = useParams();
@@ -15,10 +16,10 @@ const InvestorDetails = () => {
   useEffect(() => {
     const fetchInvestorDetails = async () => {
       try {
-        const getInvestorDetails = filterDataByIds(data, [
-          firm_id ? parseInt(firm_id) : 0,
+        const getInvestorDetails = filterDataByIds(data || [], [
+          firm_id || 0 ? parseInt(firm_id) : 0,
         ]);
-        setInvestor(getInvestorDetails[0] || {});
+        setInvestor(get(getInvestorDetails, "0", {}));
       } catch (error) {
         console.error(error);
       }
@@ -38,11 +39,11 @@ const InvestorDetails = () => {
   return (
     <div>
       <h2>Investor Details</h2>
-      <p>Firm Id: {investor.firm_id}</p>
-      <p>Firm Name: {investor.firm_name}</p>
-      <p>Type: {investor.firm_type}</p>
-      <p>Date Added: {formatUTCtoIST(investor.date_added)}</p>
-      <p>Address: {investor.address}</p>
+      <p>Firm Id: {get(investor, "firm_id", "")}</p>
+      <p>Firm Name: {get(investor, "firm_name", "")}</p>
+      <p>Type: {get(investor, "firm_type", "")}</p>
+      <p>Date Added: {formatUTCtoIST(get(investor, "date_added", ""))}</p>
+      <p>Address: {get(investor, "address", "")}</p>
 
       <AssetClassDropdown
         onChange={handleAssetClassChange}

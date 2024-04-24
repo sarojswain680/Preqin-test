@@ -9,8 +9,8 @@ import {
 import { BASE_URL } from "../Utils/constatant";
 
 export const fetchCommitmentInfo = async (
-  selectedAssetClass,
-  firmId,
+  selectedAssetClass = "",
+  firmId = 0,
   dispatch
 ) => {
   try {

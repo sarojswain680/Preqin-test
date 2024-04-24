@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setData, setError, setLoading } from "../Redux/Reducers/firmsSlice";
 import { FIRM_IDS_TO_FILTER } from "../Utils/constatant";
 import { filterDataByIds } from "../Utils/helperFunctions";
+import get from "lodash/get";
 
 const useDataFetching = (url, isInvestAPI) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const useDataFetching = (url, isInvestAPI) => {
       dispatch(setLoading(true));
       try {
         const response = await axios.get(url);
-        let data = response.data;
+        let data = get(response, "data", []);
         if (isInvestAPI) {
           data = filterDataByIds(data, FIRM_IDS_TO_FILTER);
           dispatch(setData(data));

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import get from "lodash/get";
 
 const initialState = {
   data: [],
@@ -11,13 +12,13 @@ const firmsSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      state.data = action.payload;
+      state.data = get(action, "payload", []);
     },
     setLoading: (state, action) => {
-      state.isLoading = action.payload;
+      state.isLoading = get(action, "payload", false);
     },
     setError: (state, action) => {
-      state.error = action.payload;
+      state.error = get(action, "payload", null);
     },
   },
 });

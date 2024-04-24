@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import get from "lodash/get";
 
 const initialState = {
   commitments: "",
@@ -11,13 +12,13 @@ const commitmentSlice = createSlice({
   initialState,
   reducers: {
     setCommitmentInfo(state, action) {
-      state.commitments = action.payload;
+      state.commitments = get(action, "payload", "");
     },
     setLoading(state, action) {
-      state.isLoading = action.payload;
+      state.isLoading = get(action, "payload", false);
     },
     setError(state, action) {
-      state.error = action.payload;
+      state.error = get(action, "payload", null);
     },
   },
 });
